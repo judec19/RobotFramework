@@ -7,8 +7,8 @@ ${URL}    http://www.amazon.com.br
 ${MENU_ELETRONICOS}    //a[@href='/Eletronicos-e-Tecnologia/b/?ie=UTF8&node=16209062011&ref_=nav_cs_electronics'][contains(.,'Eletrônicos')]
 ${HEADER_ELETRONICOS}    //h1[contains(.,'Eletrônicos e Tecnologia')]
 ${TEXTO_HEADER_ELETRONICOS}    Eletrônicos e Tecnologia
-${CAIXA_PESQUISA}    //input[contains(@type,'text')]
-${BOTAO_PESQUISA}    //input[contains(@type,'submit')]
+${CAIXA_PESQUISA}    twotabsearchtextbox
+${BOTAO_PESQUISA}    nav-search-submit-button
 
 *** Keywords ***
 Abrir o navegador
@@ -40,7 +40,7 @@ Digitar o nome de produto "${NOME_PRODUTO}" no campo de pesquisa
     Input Text    locator=${CAIXA_PESQUISA}    text=${NOME_PRODUTO}
 
 Clicar no botão de pesquisa
-    Click Button    locator=${BOTAO_PESQUISA}
+    Click Element    locator=${BOTAO_PESQUISA}
 
 Verificar o resultado da pesquisa, se está listando o produto ${NOME_PRODUTO}
     Wait Until Element Is Visible    locator=(//span[contains(.,'${NOME_PRODUTO}')])[3]
