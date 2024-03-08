@@ -9,6 +9,9 @@ ${HEADER_ELETRONICOS}    //h1[contains(.,'Eletrônicos e Tecnologia')]
 ${TEXTO_HEADER_ELETRONICOS}    Eletrônicos e Tecnologia
 ${CAIXA_PESQUISA}    twotabsearchtextbox
 ${BOTAO_PESQUISA}    nav-search-submit-button
+${BOTAO_ADD_CARRINHO}    add-to-cart-button
+${PRIMEIRO_PRODUTO_LISTA}    //img[@data-image-index='1']
+${BOTAO_CARRINHO}    nav-cart
 
 *** Keywords ***
 Abrir o navegador
@@ -45,6 +48,22 @@ Clicar no botão de pesquisa
 Verificar o resultado da pesquisa, se está listando o produto ${NOME_PRODUTO}
     Wait Until Element Is Visible    locator=(//span[contains(.,'${NOME_PRODUTO}')])[3]
 
+Selecionar o primeiro produto da lista e clicar nele para abrir sua respectiva página
+    Click Element    locator=${PRIMEIRO_PRODUTO_LISTA}
+    Capture Page Screenshot
+
+Adicionar o produto "${NOME_PRODUTO}" no carrinho
+    Click Button    locator=${BOTAO_ADD_CARRINHO}
+
+Verificar se o produto "${NOME_PRODUTO}" foi adicionado com sucesso
+    Click Element    locator=${BOTAO_CARRINHO}
+    Wait Until Element Is Visible    locator=//span[@class='a-truncate-cut'][contains(.,'Console Xbox Series S')]
+
+Remover o produto "Console Xbox Series S" do carrinho
+    Click Element    locator=//input[contains(@value,'Excluir')]
+
+Verificar se o carrinho fica vazio
+    Wait Until Element Is Visible    locator=//h1[contains(.,'Seu carrinho de compras da Amazon está vazio.')]
 
 # GHERKIN STEPS
 
