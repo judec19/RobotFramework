@@ -92,3 +92,27 @@ Então o título da página deve ficar "Amazon.com.br : Xbox Series S"
 
 E um produto da linha "Xbox Series S" deve ser mostrado na página
     Verificar o resultado da pesquisa, se está listando o produto "Xbox Series S"
+
+Quando adicionar o produto "Xbox Series S" no carrinho
+    Digitar o nome de produto "Xbox Series S" no campo de pesquisa
+    Clicar no botão de pesquisa
+    Verificar o resultado da pesquisa, se está listando o produto "Xbox Series S"
+    Selecionar o primeiro produto da lista e clicar nele para abrir sua respectiva página
+    Adicionar o produto "Xbox Series S" no carrinho
+
+Então o produto "Xbox Series S" deve ser mostrado no carrinho
+    Verificar se o produto "Console Xbox Series S" foi adicionado com sucesso
+
+E existe o produto "Xbox Series S" no carrinho
+    Digitar o nome de produto "Xbox Series S" no campo de pesquisa
+    Clicar no botão de pesquisa
+    Verificar o resultado da pesquisa, se está listando o produto "Xbox Series S"
+    Selecionar o primeiro produto da lista e clicar nele para abrir sua respectiva página
+    Adicionar o produto "Xbox Series S" no carrinho
+    Verificar se o produto "Console Xbox Series S" foi adicionado com sucesso
+
+Quando remover o produto "Xbox Series S" do carrinho
+    Remover o produto "Console Xbox Series S" do carrinho
+
+Então o carrinho deve ficar vazio
+    Verificar se o carrinho fica vazio
