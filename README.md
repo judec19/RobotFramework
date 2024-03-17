@@ -13,7 +13,7 @@ Estou utilizando a plataforma [Robot Framework](https://robotframework.org/) com
 ## Estrutura do Repositório
 
 - **/TestesSiteAmazon:** Contém códigos e exemplos relacionados ao primeiro contato com o Robot Framework utilizando o site da Amazon como primeiro aprendizado.
-- **/TiposVariaveis** Contém códigos e exemplos relacionados ao estudo dos tipos de variáveis presentes no Robot Framework.
+- **/TiposVariaveis:** Contém códigos e exemplos relacionados ao estudo dos tipos de variáveis presentes no Robot Framework.
 
 ## Bibliotecas Utilizadas
 

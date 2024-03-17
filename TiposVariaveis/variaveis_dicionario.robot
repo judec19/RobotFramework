@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    Essa suíte reforça o estudo sobre variáveis do tipo lista
+Documentation    Essa suíte reforça o estudo sobre o uso variáveis do tipo lista
 
 *** Variables ***
 
