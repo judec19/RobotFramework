@@ -18,6 +18,8 @@ Estou utilizando a plataforma [Robot Framework](https://robotframework.org/) com
 ## Bibliotecas Utilizadas
 
 - [Selenium Library](https://github.com/robotframework/SeleniumLibrary/)
+- [String](https://robotframework.org/robotframework/latest/libraries/String.html)
+- [BuiltIn](https://robotframework.org/robotframework/latest/libraries/BuiltIn.html)
 
 ## Como Contribuir
 
