@@ -5,7 +5,6 @@ Library    String
 
 *** Variables ***
 
-
 *** Keywords ***
 Criar um novo usuário
     ${palavra_aleatoria}    Generate Random String    length=5    chars=[LOWER]
@@ -78,3 +77,63 @@ Realizar Login com o usuário
 
 Conferir se o Login ocorreu com sucesso
     Dictionary Should Contain Item    ${RESPOSTA_LOGIN}    message    Login realizado com sucesso
+
+Listar os usuários cadastrados
+    [Arguments]    ${status_code}
+    ${resposta_get_usuarios}    GET On Session
+    ...    alias=ServeRestSession
+    ...    expected_status=${status_code}
+    ...    url=/usuarios
+
+    Set Test Variable    ${RESPOSTA_GET_USUARIOS}    ${resposta_get_usuarios.json()}
+    Get Dictionary Items    ${RESPOSTA_GET_USUARIOS}
+
+Retornar um log com a quantidade de usuários cadastrados
+    log    A quantidade de usuários cadastrados é: ${RESPOSTA_GET_USUARIOS["quantidade"]}
+
+Retornar um log com os e-mails cadastrados
+    Set Test Variable    ${LISTA_USUARIOS}    ${RESPOSTA_GET_USUARIOS["usuarios"]}
+    ${result}    Create List    
+    FOR    ${usuario}    IN    @{RESPOSTA_GET_USUARIOS["usuarios"]}
+        ${email}    set Variable    ${usuario["email"]}
+        Append To List    ${result}    ${email}
+    END
+    Log    ${result}
+
+Selecionar um usuário da lista com base no e-mail e coletar seu ID
+    [Arguments]    ${email}
+    ${detalhes_usuario}    Set Variable    ${EMPTY}
+    ${usuarios}    Set Variable    ${RESPOSTA_GET_USUARIOS["usuarios"]}
+    FOR    ${usuario}    IN    @{usuarios}
+        ${email_usuario}    Set Variable    ${usuario["email"]}
+        IF    '${email_usuario}'=='${email}'
+            Log    encontrado o email
+            ${nome}    Set Variable    ${usuario["nome"]}
+            ${email}    Set Variable    ${usuario["email"]}
+            ${senha}    Set Variable    ${usuario["password"]}
+            ${id}    Set Variable    ${usuario["_id"]}
+            ${administrador}    Set Variable    ${usuario["administrador"]}
+        END
+    END
+    Set Global Variable    ${ID_DO_USUARIO}    ${id}
+    Set Global Variable    ${NOME_DO_USUARIO}    ${nome}
+    Set Global Variable    ${EMAIL_DO_USUARIO}    ${email}
+    Set Global Variable    ${USUARIO_ADM}    ${administrador}
+    Set Global Variable    ${SENHA_DO_USUARIO}    ${senha}
+
+Editar a senha do usuário cadastrado
+    ${body}    Create Dictionary
+    ...    nome=${NOME_DO_USUARIO}
+    ...    email=${EMAIL_DO_USUARIO}
+    ...    password=6262626262
+    ...    administrador=${USUARIO_ADM}
+    
+    ${resposta_put}    PUT On Session    
+    ...    alias=ServeRestSession
+    ...    url=/usuarios/${ID_DO_USUARIO}
+    ...    json=${body}
+    
+    Set Test Variable    ${RESPOSTA_PUT}    ${resposta_put.json()}
+
+Conferir se a senha foi alterada com sucesso
+    Dictionary Should Contain Item    ${RESPOSTA_PUT}    message    Registro alterado com sucesso

@@ -25,3 +25,24 @@ Caso de teste 04: Logar com o novo usuário criado
     Cadastrar o usuário criado    email=${EMAIL_USUARIO}    status_code=201
     Realizar Login com o usuário
     Conferir se o Login ocorreu com sucesso
+
+Caso de teste 05: Listar todos os usuários cadastrados
+    Criar um novo usuário
+    Cadastrar o usuário criado    email=${EMAIL_USUARIO}    status_code=201
+    Listar os usuários cadastrados    status_code=200
+    Retornar um log com a quantidade de usuários cadastrados
+    Retornar um log com os e-mails cadastrados
+
+Caso de teste 06: Editar a senha de um usuário
+    Criar um novo usuário
+    Cadastrar o usuário criado    email=${EMAIL_USUARIO}    status_code=201
+    Listar os usuários cadastrados    status_code=200
+    Selecionar um usuário da lista com base no e-mail e coletar seu ID    email=patrcik_estrela@hotmail.com.br
+    Editar a senha do usuário cadastrado
+    Conferir se a senha foi alterada com sucesso
+
+# # Caso de teste 07: Excluir um usuário
+# #     Criar um novo usuário
+# #     Cadastrar o usuário criado    email=${EMAIL_USUARIO}    status_code=201
+# #     Excluir o usuário cadastrado
+# #     Conferir se o usuário foi excluído com sucesso
