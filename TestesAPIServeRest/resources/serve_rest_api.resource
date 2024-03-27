@@ -132,8 +132,27 @@ Editar a senha do usuário cadastrado
     ...    alias=ServeRestSession
     ...    url=/usuarios/${ID_DO_USUARIO}
     ...    json=${body}
+    ...    expected_status=200
     
     Set Test Variable    ${RESPOSTA_PUT}    ${resposta_put.json()}
 
 Conferir se a senha foi alterada com sucesso
     Dictionary Should Contain Item    ${RESPOSTA_PUT}    message    Registro alterado com sucesso
+
+Excluir o usuário cadastrado
+    ${resposta_delete}    DELETE On Session    
+    ...    alias=ServeRestSession
+    ...    url=/usuarios/${ID_DO_USUARIO}
+    ...    expected_status=200
+    
+    Set Test Variable    ${RESPOSTA_DELETE}    ${resposta_delete.json()}
+
+Conferir se o usuário foi excluído com sucesso
+    Dictionary Should Contain Item    ${RESPOSTA_DELETE}    message    Registro excluído com sucesso
+    # ${resposta_get}    GET On Session
+    # ...    alias=ServeRestSession
+    # ...    expected_status=400
+    # ...    url=/usuarios/${ID_USUARIO}
+    
+    # Set Test Variable    ${RESPOSTA_GET}    ${resposta_get.json()}
+    # Dictionary Should Contain Item    ${RESPOSTA_GET}    message    Usuário não encontrado

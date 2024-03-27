@@ -37,12 +37,14 @@ Caso de teste 06: Editar a senha de um usuário
     Criar um novo usuário
     Cadastrar o usuário criado    email=${EMAIL_USUARIO}    status_code=201
     Listar os usuários cadastrados    status_code=200
-    Selecionar um usuário da lista com base no e-mail e coletar seu ID    email=patrcik_estrela@hotmail.com.br
+    Selecionar um usuário da lista com base no e-mail e coletar seu ID    email=ozacg@emailteste.com.br
     Editar a senha do usuário cadastrado
     Conferir se a senha foi alterada com sucesso
 
-# # Caso de teste 07: Excluir um usuário
-# #     Criar um novo usuário
-# #     Cadastrar o usuário criado    email=${EMAIL_USUARIO}    status_code=201
-# #     Excluir o usuário cadastrado
-# #     Conferir se o usuário foi excluído com sucesso
+Caso de teste 07: Excluir um usuário
+    Criar um novo usuário
+    Cadastrar o usuário criado    email=${EMAIL_USUARIO}    status_code=201
+    Listar os usuários cadastrados    status_code=200
+    Selecionar um usuário da lista com base no e-mail e coletar seu ID    email=ozacg@emailteste.com.br
+    Excluir o usuário cadastrado
+    Conferir se o usuário foi excluído com sucesso
