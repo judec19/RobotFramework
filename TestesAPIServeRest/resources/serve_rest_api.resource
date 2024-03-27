@@ -34,8 +34,11 @@ Cadastrar o usuário criado
     ...    json=${body}
     ...    expected_status=${status_code}
 
+    IF    ${resposta_post.status_code} == 201
+        Set Test Variable    ${ID_USUARIO}    ${resposta_post.json()["_id"]}
+    END
+
     Set Test Variable    ${RESPOSTA_post}    ${resposta_post.json()}
-    Set Test Variable    ${ID_USUARIO}    ${resposta_post["_id"]}
 
 Verificar se o usuário foi cadastrado com sucesso
     Dictionary Should Contain Item    ${RESPOSTA_post}    message    Cadastro realizado com sucesso
@@ -58,3 +61,20 @@ Conferir os dados retornados
     Dictionary Should Contain Item    ${RESPOSTA_GET}    password         12345
     Dictionary Should Contain Item    ${RESPOSTA_GET}    administrador    true
     Dictionary Should Contain Item    ${RESPOSTA_GET}    _id              ${ID_USUARIO}
+
+Repetir cadastro
+    Cadastrar o usuário criado    email=${EMAIL_USUARIO}    status_code=400
+
+Verificar se o sistema bloqueia a criação de um usuário já cadastrado
+    Dictionary Should Contain Item    ${RESPOSTA_post}    message    Este email já está sendo usado
+
+Realizar Login com o usuário
+    ${body_login}    Create Dictionary    email=${EMAIL_USUARIO}    password=12345
+    ${resposta_login}    POST On Session
+    ...    alias=ServeRestSession
+    ...    url=/login
+    ...    json=${body_login}
+    Set Test Variable    ${RESPOSTA_LOGIN}    ${resposta_login.json()}
+
+Conferir se o Login ocorreu com sucesso
+    Dictionary Should Contain Item    ${RESPOSTA_LOGIN}    message    Login realizado com sucesso
