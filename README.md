@@ -15,6 +15,7 @@ Estou utilizando a plataforma [Robot Framework](https://robotframework.org/) com
 - **/TestesSiteAmazon:** Contém códigos e exemplos relacionados ao primeiro contato com o Robot Framework utilizando o site da Amazon como primeiro aprendizado.
 - **/TiposVariaveis:** Contém códigos e exemplos relacionados ao estudo dos tipos de variáveis presentes no Robot Framework.
 - **/EstruturasRobot:** Contém códigos e exemplos relacionados ao estudo dos tipos de estruturas no Robot Framework.
+- **/TestesAPIServeRest:** Contém códigos e exemplos relacionados ao estudo de automação de APIs com Robot Framework utilizando o site https://serverest.dev/
 
 ## Bibliotecas Utilizadas
 
