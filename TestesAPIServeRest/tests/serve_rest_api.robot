@@ -49,11 +49,31 @@ Caso de teste 06: Editar a senha de um usuário
     Criar um novo usuário
     Cadastrar o usuário criado    email=${EMAIL_USUARIO}    status_code=201
     Listar os usuários cadastrados    status_code=200
-    Selecionar um usuário da lista com base no e-mail e coletar seu ID    email=ozacg@emailteste.com.br
-    Editar a senha do usuário cadastrado
+    Selecionar um usuário da lista com base no e-mail e coletar seu ID    email=aaa@bbbb.com
+    Editar a senha do usuário selecionado
     Conferir se a senha foi alterada com sucesso
 
-Caso de teste 07: Excluir um usuário
+Caso de teste 07: Editar o nome de um usuário
+    [Documentation]    Esse test case realiza a edição do nome de um usuário já cadastrado na API REST gratuita https://serverest.dev/
+    [Tags]    edita_usuario
+    Criar um novo usuário
+    Cadastrar o usuário criado    email=${EMAIL_USUARIO}    status_code=201
+    Listar os usuários cadastrados    status_code=200
+    Selecionar um usuário da lista com base no e-mail e coletar seu ID    email=aaa@bbbb.com
+    Editar o nome do usuário selecionado
+    Conferir se o nome foi alterado com sucesso
+
+Caso de teste 08: Editar os privilégios de administrador de um usuário
+    [Documentation]    Esse test case realiza a edição dos privilégios de administrador de um usuário já cadastrado na API REST gratuita https://serverest.dev/
+    [Tags]    edita_usuario
+    Criar um novo usuário
+    Cadastrar o usuário criado    email=${EMAIL_USUARIO}    status_code=201
+    Listar os usuários cadastrados    status_code=200
+    Selecionar um usuário da lista com base no e-mail e coletar seu ID    email=Theo_Blick92@gmail.com
+    Editar os privilégios de administrador do usuário selecionado
+    Conferir se os privilégios de administrador foram alterados com sucesso
+
+Caso de teste 09: Excluir um usuário
     [Documentation]    Esse test case exclui um usuário cadastrado na API REST gratuita https://serverest.dev/
     [Tags]    exclui_usuario
     Criar um novo usuário

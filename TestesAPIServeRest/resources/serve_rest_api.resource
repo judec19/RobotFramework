@@ -121,11 +121,12 @@ Selecionar um usuário da lista com base no e-mail e coletar seu ID
     Set Global Variable    ${USUARIO_ADM}    ${administrador}
     Set Global Variable    ${SENHA_DO_USUARIO}    ${senha}
 
-Editar a senha do usuário cadastrado
+Editar a senha do usuário selecionado
+    ${senha_aleatoria_gerada}    Generate Random String    length=8
     ${body}    Create Dictionary
     ...    nome=${NOME_DO_USUARIO}
     ...    email=${EMAIL_DO_USUARIO}
-    ...    password=6262626262
+    ...    password=${senha_aleatoria_gerada}
     ...    administrador=${USUARIO_ADM}
     
     ${resposta_put}    PUT On Session    
@@ -139,6 +140,51 @@ Editar a senha do usuário cadastrado
 Conferir se a senha foi alterada com sucesso
     Dictionary Should Contain Item    ${RESPOSTA_PUT}    message    Registro alterado com sucesso
 
+Editar o nome do usuário selecionado
+    ${nome_aleatorio_gerado}    Generate Random String    length=8    chars=[LOWER]
+    ${sobrenome_aleatorio_gerado}    Generate Random String    length=8    chars=[LOWER]
+    ${nome_completo_gerado}    Set Variable    ${nome_aleatorio_gerado} ${sobrenome_aleatorio_gerado}
+    ${body}    Create Dictionary
+    ...    nome=${nome_completo_gerado}
+    ...    email=${EMAIL_DO_USUARIO}
+    ...    password=${SENHA_DO_USUARIO}
+    ...    administrador=${USUARIO_ADM}
+    
+    ${resposta_put}    PUT On Session    
+    ...    alias=ServeRestSession
+    ...    url=/usuarios/${ID_DO_USUARIO}
+    ...    json=${body}
+    ...    expected_status=200
+    
+    Set Test Variable    ${RESPOSTA_PUT}    ${resposta_put.json()}
+
+Conferir se o nome foi alterado com sucesso
+    Dictionary Should Contain Item    ${RESPOSTA_PUT}    message    Registro alterado com sucesso
+
+Editar os privilégios de administrador do usuário selecionado
+    IF    '${USUARIO_ADM}' == 'true'
+        Set Test Variable    ${privilegios_adm}    false
+    ELSE
+        Set Test Variable    ${privilegios_adm}    true
+    END
+    Log    ${privilegios_adm}
+    ${body}    Create Dictionary
+    ...    nome=${NOME_DO_USUARIO}
+    ...    email=${EMAIL_DO_USUARIO}
+    ...    password=${SENHA_DO_USUARIO}
+    ...    administrador=${privilegios_adm}
+    
+    ${resposta_put}    PUT On Session    
+    ...    alias=ServeRestSession
+    ...    url=/usuarios/${ID_DO_USUARIO}
+    ...    json=${body}
+    ...    expected_status=200
+    
+    Set Test Variable    ${RESPOSTA_PUT}    ${resposta_put.json()}
+
+Conferir se os privilégios de administrador foram alterados com sucesso
+    Dictionary Should Contain Item    ${RESPOSTA_PUT}    message    Registro alterado com sucesso
+
 Excluir o usuário cadastrado
     ${resposta_delete}    DELETE On Session    
     ...    alias=ServeRestSession
@@ -149,10 +195,3 @@ Excluir o usuário cadastrado
 
 Conferir se o usuário foi excluído com sucesso
     Dictionary Should Contain Item    ${RESPOSTA_DELETE}    message    Registro excluído com sucesso
-    # ${resposta_get}    GET On Session
-    # ...    alias=ServeRestSession
-    # ...    expected_status=400
-    # ...    url=/usuarios/${ID_USUARIO}
-    
-    # Set Test Variable    ${RESPOSTA_GET}    ${resposta_get.json()}
-    # Dictionary Should Contain Item    ${RESPOSTA_GET}    message    Usuário não encontrado
