@@ -135,10 +135,10 @@ Editar a senha do usuário selecionado
     ...    json=${body}
     ...    expected_status=200
     
-    Set Test Variable    ${RESPOSTA_PUT}    ${resposta_put.json()}
+    Set Test Variable    ${RESPOSTA_PUT_SENHA}    ${resposta_put.json()}
 
 Conferir se a senha foi alterada com sucesso
-    Dictionary Should Contain Item    ${RESPOSTA_PUT}    message    Registro alterado com sucesso
+    Dictionary Should Contain Item    ${RESPOSTA_PUT_SENHA}    message    Registro alterado com sucesso
 
 Editar o nome do usuário selecionado
     ${nome_aleatorio_gerado}    Generate Random String    length=8    chars=[LOWER]
@@ -156,10 +156,10 @@ Editar o nome do usuário selecionado
     ...    json=${body}
     ...    expected_status=200
     
-    Set Test Variable    ${RESPOSTA_PUT}    ${resposta_put.json()}
+    Set Test Variable    ${RESPOSTA_PUT_NOME}    ${resposta_put.json()}
 
 Conferir se o nome foi alterado com sucesso
-    Dictionary Should Contain Item    ${RESPOSTA_PUT}    message    Registro alterado com sucesso
+    Dictionary Should Contain Item    ${RESPOSTA_PUT_NOME}    message    Registro alterado com sucesso
 
 Editar os privilégios de administrador do usuário selecionado
     IF    '${USUARIO_ADM}' == 'true'
@@ -180,10 +180,30 @@ Editar os privilégios de administrador do usuário selecionado
     ...    json=${body}
     ...    expected_status=200
     
-    Set Test Variable    ${RESPOSTA_PUT}    ${resposta_put.json()}
+    Set Test Variable    ${RESPOSTA_PUT_ADM}    ${resposta_put.json()}
 
 Conferir se os privilégios de administrador foram alterados com sucesso
-    Dictionary Should Contain Item    ${RESPOSTA_PUT}    message    Registro alterado com sucesso
+    Dictionary Should Contain Item    ${RESPOSTA_PUT_ADM}    message    Registro alterado com sucesso
+
+Editar e-mail do usuário selecionado
+    ${palavra_aleatoria}    Generate Random String    length=5    chars=[LOWER]
+    Set Test Variable    ${email_usuario}    ${palavra_aleatoria}@emailteste.com.br
+    ${body}    Create Dictionary
+    ...    nome=${NOME_DO_USUARIO}
+    ...    email=${EMAIL_DO_USUARIO}
+    ...    password=${email_usuario}
+    ...    administrador=${USUARIO_ADM}
+    
+    ${resposta_put}    PUT On Session    
+    ...    alias=ServeRestSession
+    ...    url=/usuarios/${ID_DO_USUARIO}
+    ...    json=${body}
+    ...    expected_status=200
+    
+    Set Test Variable    ${RESPOSTA_PUT_EMAIL}    ${resposta_put.json()}
+
+Conferir se o e-mail foi alterado com sucesso
+    Dictionary Should Contain Item    ${RESPOSTA_PUT_EMAIL}    message    Registro alterado com sucesso
 
 Excluir o usuário cadastrado
     ${resposta_delete}    DELETE On Session    
