@@ -22,6 +22,8 @@ Estou utilizando a plataforma [Robot Framework](https://robotframework.org/) com
 - [Selenium Library](https://github.com/robotframework/SeleniumLibrary/)
 - [String](https://robotframework.org/robotframework/latest/libraries/String.html)
 - [BuiltIn](https://robotframework.org/robotframework/latest/libraries/BuiltIn.html)
+- [Collections](https://robotframework.org/robotframework/latest/libraries/Collections.html)
+- [RequestsLibrary](https://github.com/MarketSquare/robotframework-requests)
 
 ## Como Contribuir
 
