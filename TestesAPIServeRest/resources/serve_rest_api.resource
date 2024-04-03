@@ -190,8 +190,8 @@ Editar e-mail do usuário selecionado
     Set Test Variable    ${email_usuario}    ${palavra_aleatoria}@emailteste.com.br
     ${body}    Create Dictionary
     ...    nome=${NOME_DO_USUARIO}
-    ...    email=${EMAIL_DO_USUARIO}
-    ...    password=${email_usuario}
+    ...    email=${email_usuario}
+    ...    password=${SENHA_DO_USUARIO}
     ...    administrador=${USUARIO_ADM}
     
     ${resposta_put}    PUT On Session    
