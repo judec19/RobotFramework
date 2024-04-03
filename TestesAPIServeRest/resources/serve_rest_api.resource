@@ -214,4 +214,10 @@ Excluir o usuário cadastrado
     Set Test Variable    ${RESPOSTA_DELETE}    ${resposta_delete.json()}
 
 Conferir se o usuário foi excluído com sucesso
+    ${body}    Create Dictionary
+    ...    nome=${NOME_DO_USUARIO}
+    ...    email=${EMAIL_DO_USUARIO}
+    ...    password=${SENHA_DO_USUARIO}
+    ...    administrador=${USUARIO_ADM}
+    Log   O usuário com os seguintes dados foi excluído: ${body}
     Dictionary Should Contain Item    ${RESPOSTA_DELETE}    message    Registro excluído com sucesso
